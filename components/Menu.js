@@ -35,9 +35,6 @@ const Menu = () => {
           <TouchableOpacity onPress={() => navigateToScreen('Rechercher')}>
             <Text style={styles.menuItem}>Rechercher</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigateToScreen('Combinaisons')}>
-            <Text style={styles.menuItem}>Combinaisons</Text>
-          </TouchableOpacity>
         </>
       ) : null}
       <TouchableOpacity onPress={() => navigateToScreen('A propos')}>

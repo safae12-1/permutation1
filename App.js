@@ -8,7 +8,6 @@ import AProposScreen from './components/AProposScreen';
 import ConnexionScreen from './components/ConnexionScreen';
 import Profil from './components/Profil';
 import Rechercher from './components/Rechercher';
-import Combinaisons from './components/Combinaisons';
 import Menu from './components/Menu';
 
 import { AuthProvider } from './components/context/AuthContext'; // Import the AuthProvider
@@ -28,7 +27,6 @@ const App = () => {
           <Drawer.Screen name="Inscription" component={InscriptionScreen} />
           <Drawer.Screen name="Profil" component={Profil} />
           <Drawer.Screen name="Rechercher" component={Rechercher} />
-          <Drawer.Screen name="Combinaisons" component={Combinaisons} />
         </Drawer.Navigator>
       </NavigationContainer>
     </AuthProvider>
