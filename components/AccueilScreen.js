@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
-
+import Footer from './footer';
 const AccueilScreen = () => {
   const [nombreProfesseurs, setNombreProfesseurs] = useState(0);
   const [dataSpecialites, setDataSpecialites] = useState([]);
@@ -212,7 +212,7 @@ const AccueilScreen = () => {
   )}
 </View>
 
-
+ <Footer /> 
     </View>
      </ScrollView>
   );

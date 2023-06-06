@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
+import Footer from './footer';
 
 const InscriptionScreen = () => {
   const [nom, setNom] = useState('');
@@ -93,131 +94,128 @@ const InscriptionScreen = () => {
 
   return (
     <ScrollView>
-    <View style={styles.container}>
-      <Text style={styles.title}>Inscription</Text>
-      <View style={styles.fieldContainer}>
-        <Text style={[styles.label, { marginBottom: 5 }]}>Nom :</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nom"
-          value={nom}
-          onChangeText={text => setNom(text)}
-        />
-      </View>
-      
-      <View style={styles.fieldContainer}>
-        <Text style={[styles.label, { marginBottom: 5 }]}>Prénom :</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Prénom"
-          value={prenom}
-          onChangeText={text => setPrenom(text)}
-        />
-      </View>
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Téléphone :</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Téléphone"
-          value={telephone}
-          onChangeText={text => setTelephone(text)}
-        />
-      </View>
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Email :</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={text => setEmail(text)}
-        />
-      </View>
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Mot de passe :</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Mot de passe"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={text => setPassword(text)}
-        />
-      </View>
-
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Grade :</Text>
-        <Picker
-        style={styles.dropdown}
-        selectedValue={grade}
-        onValueChange={itemValue => setGrade(itemValue)}
-      >
-        <Picker.Item label="Sélectionner un grade" value="" />
-        {grades.map(gradeItem => (
-          <Picker.Item key={gradeItem} label={gradeItem} value={gradeItem} />
-        ))}
-      </Picker>
-      </View>
-      
-
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Etablissement (abréviation: FST, FS, EST, ENSA ...) :</Text>
-        <TextInput
-        style={styles.input}
-        placeholder="Etablissement"
-        value={etablissement}
-        onChangeText={text => setEtablissement(text)}
-      />
-      </View>
-      
-
-      <View style={styles.fieldContainer}>
-        <Text style={styles.label}>spécialité:</Text>
-      <Picker
-        style={styles.dropdown}
-        selectedValue={specialite}
-        onValueChange={itemValue => setSpecialite(itemValue)}
-      >
-        <Picker.Item label="Sélectionner une spécialité" value="" />
-        {specialites.map(specialiteItem => (
-          <Picker.Item key={specialiteItem} label={specialiteItem} value={specialiteItem} />
-        ))}
-      </Picker>
-      </View>
-      
+      <View style={styles.container}>
+        <Text style={styles.title}>Inscription</Text>
         <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Ville Actuelle:</Text>
-         <Picker
-        style={styles.dropdown}
-        selectedValue={villeActuelle}
-        onValueChange={itemValue => setVilleActuelle(itemValue)}
-      >
-        <Picker.Item label="Sélectionner une ville actuelle" value="" />
-        {villesOptions.map(villeItem => (
-          <Picker.Item key={villeItem.value} label={villeItem.label} value={villeItem.value} />
-        ))}
-      </Picker>
-      </View>
-     
+          <Text style={[styles.label, { marginBottom: 5 }]}>Nom :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nom"
+            value={nom}
+            onChangeText={text => setNom(text)}
+          />
+        </View>
 
-     <View style={styles.fieldContainer}>
-        <Text style={styles.label}>Villes Désirées:</Text>
-      <Picker
-        style={styles.dropdown}
-        selectedValue={villesDesirees}
-        onValueChange={itemValue => setVillesDesirees(itemValue)}
-        mode="multiple"
-      >
-        <Picker.Item label="Sélectionner des villes désirées" value="" />
-        {villesDesirees.map(villeItem => (
-          <Picker.Item key={villeItem.value} label={villeItem.label} value={villeItem.value} />
-        ))}
-      </Picker>
-      </View>
+        <View style={styles.fieldContainer}>
+          <Text style={[styles.label, { marginBottom: 5 }]}>Prénom :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Prénom"
+            value={prenom}
+            onChangeText={text => setPrenom(text)}
+          />
+        </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Téléphone :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Téléphone"
+            value={telephone}
+            onChangeText={text => setTelephone(text)}
+          />
+        </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Email :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={text => setEmail(text)}
+          />
+        </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Mot de passe :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Mot de passe"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={text => setPassword(text)}
+          />
+        </View>
 
-      
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>S'inscrire</Text>
-      </TouchableOpacity>
-    </View>
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Grade :</Text>
+          <Picker
+            style={styles.dropdown}
+            selectedValue={grade}
+            onValueChange={itemValue => setGrade(itemValue)}
+          >
+            <Picker.Item label="Sélectionner un grade" value="" />
+            {grades.map(gradeItem => (
+              <Picker.Item key={gradeItem} label={gradeItem} value={gradeItem} />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Etablissement (abréviation: FST, FS, EST, ENSA ...) :</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Etablissement"
+            value={etablissement}
+            onChangeText={text => setEtablissement(text)}
+          />
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Spécialité :</Text>
+          <Picker
+            style={styles.dropdown}
+            selectedValue={specialite}
+            onValueChange={itemValue => setSpecialite(itemValue)}
+          >
+            <Picker.Item label="Sélectionner une spécialité" value="" />
+            {specialites.map(specialiteItem => (
+              <Picker.Item key={specialiteItem} label={specialiteItem} value={specialiteItem} />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Ville actuelle :</Text>
+          <Picker
+            style={styles.dropdown}
+            selectedValue={villeActuelle}
+            onValueChange={itemValue => setVilleActuelle(itemValue)}
+          >
+            <Picker.Item label="Sélectionner une ville actuelle" value="" />
+            {villesOptions.map(villeOption => (
+              <Picker.Item key={villeOption.value} label={villeOption.label} value={villeOption.value} />
+            ))}
+          </Picker>
+        </View>
+
+        <View style={styles.fieldContainer}>
+          <Text style={styles.label}>Villes désirées :</Text>
+          <Picker
+            style={styles.dropdown}
+            selectedValue={villesDesirees}
+            onValueChange={itemValue => setVillesDesirees(itemValue)}
+            mode="multiple"
+          >
+             <Picker.Item label="Sélectionner une ville désiré" value="" />
+            {villesDesirees.map(villeDesiree => (
+              <Picker.Item key={villeDesiree.value} label={villeDesiree.label} value={villeDesiree.value} />
+            ))}
+          </Picker>
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>S'inscrire</Text>
+        </TouchableOpacity>
+      </View>
+      <Footer />
     </ScrollView>
   );
 };
@@ -225,46 +223,48 @@ const InscriptionScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
   },
   fieldContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 10,
+    width: '100%',
   },
   label: {
-    marginRight: 10,
-    width: 100,
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
   input: {
-    flex: 1,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
-    paddingLeft: 10,
+    paddingHorizontal: 10,
   },
   dropdown: {
     height: 40,
     width: '100%',
-    marginBottom: 10,
+    ...(Platform.OS === 'android' && {
+      color: 'black',
+      backgroundColor: 'white',
+    }),
   },
   button: {
     backgroundColor: 'blue',
-    padding: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     borderRadius: 5,
+    marginTop: 20,
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
     fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 16,
   },
 });
 

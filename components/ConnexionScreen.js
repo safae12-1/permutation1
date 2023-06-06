@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
 import { AuthContext } from './context/AuthContext';
-
+import Footer from './footer';
 const ConnexionScreen  = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -93,6 +93,7 @@ const ConnexionScreen  = ({ navigation }) => {
       <TouchableOpacity>
         <Text style={styles.forgotPassword}>Mot de passe oublié ?</Text>
       </TouchableOpacity>
+      <Footer /> 
     </View>
   );
 };

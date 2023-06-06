@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, Button } from 'react-native';
 import { AuthContext } from './context/AuthContext';
-
+import Footer from './footer';
 const Profil = () => {
   const [userInfo, setUserInfo] = useState({});
   const { currentEmail } = useContext(AuthContext);
@@ -130,6 +130,7 @@ const Profil = () => {
   // onPress={handleSubmit}
   color="red"
 />
+<Footer /> 
         </View>
       ) : (
         <Text>Loading...</Text>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, Picker } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import Footer from './footer';
 const Rechercher = () => {
   const [specialite, setSpecialite] = useState('');
   const [villeActuelle, setVilleActuelle] = useState('');
@@ -124,6 +124,7 @@ const handleSubmit = () => {
           ))
         }
       </View>
+      <Footer /> 
     </View>
   );
 };
