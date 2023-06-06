@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, Picker } from 'react-native';
+import { View, Text, StyleSheet, Button,ScrollView } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+
+
 import DropDownPicker from 'react-native-dropdown-picker';
+
 import Footer from './footer';
 const Rechercher = () => {
   const [specialite, setSpecialite] = useState('');
@@ -70,6 +74,7 @@ const handleSubmit = () => {
 
 
   return (
+     <ScrollView>
     <View style={styles.container}>
       <Text style={styles.title}>Rechercher</Text>
 
@@ -126,6 +131,7 @@ const handleSubmit = () => {
       </View>
       <Footer /> 
     </View>
+     </ScrollView>
   );
 };
 
@@ -147,12 +153,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 16,
   },
-  dropdown: {
-    backgroundColor: '#fafafa',
-  },
-  dropdownList: {
-    backgroundColor: '#fafafa',
-  },
+
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',

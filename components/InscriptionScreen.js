@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+} from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
 import Footer from './footer';
@@ -23,54 +31,65 @@ const InscriptionScreen = () => {
   // Fetch les données de grade, spécialité, ville actuelle et villes désirées
   useEffect(() => {
     fetch('https://troubled-red-garb.cyclic.app/professeurs')
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         const professeur = data[0]; // Supposons que vous récupérez un seul objet professeur du tableau
-        setGrades([...new Set(data.map(professeur => professeur.grade))]);
-        setSpecialites([...new Set(data.map(professeur => professeur.specialite))]);
+        setGrades([...new Set(data.map((professeur) => professeur.grade))]);
+        setSpecialites([
+          ...new Set(data.map((professeur) => professeur.specialite)),
+        ]);
 
         const villesActuelles = professeur.villeFaculteActuelle.split(';');
         const villesDesirees = professeur.villeDesiree.split(';');
 
         // Récupérer les données des villes actuelles
-        const villesActuellesFetchPromises = villesActuelles.map(villeActuelle =>
-          fetch(`https://troubled-red-garb.cyclic.app/villes/${villeActuelle}`)
-            .then(response => response.json())
-            .then(villeData => villeData)
+        const villesActuellesFetchPromises = villesActuelles.map(
+          (villeActuelle) =>
+            fetch(
+              `https://troubled-red-garb.cyclic.app/villes/${villeActuelle}`
+            )
+              .then((response) => response.json())
+              .then((villeData) => villeData)
         );
 
         Promise.all(villesActuellesFetchPromises)
-          .then(villesActuellesData => {
-            const villesActuellesOptions = villesActuellesData.map(ville => ({
+          .then((villesActuellesData) => {
+            const villesActuellesOptions = villesActuellesData.map((ville) => ({
               label: ville.nom,
               value: ville.nom,
             }));
             setVillesOptions(villesActuellesOptions);
           })
-          .catch(error => {
-            console.error('Erreur lors de la récupération des données des villes actuelles:', error);
+          .catch((error) => {
+            console.error(
+              'Erreur lors de la récupération des données des villes actuelles:',
+              error
+            );
           });
 
         // Récupérer les données des villes désirées
-        const villesDesireesFetchPromises = villesDesirees.map(villeDesiree =>
+        const villesDesireesFetchPromises = villesDesirees.map((villeDesiree) =>
           fetch(`https://troubled-red-garb.cyclic.app/villes/${villeDesiree}`)
-            .then(response => response.json())
-            .then(villeData => villeData)
+            .then((response) => response.json())
+            .then((villeData) => villeData)
         );
 
         Promise.all(villesDesireesFetchPromises)
-          .then(villesDesireesData => {
-            const villesDesireesOptions = villesDesireesData.map(ville => ({
+          .then((villesDesireesData) => {
+            const villesDesireesOptions = villesDesireesData.map((ville) => ({
               label: ville.nom,
               value: ville.nom,
             }));
             setVillesDesirees(villesDesireesOptions);
           })
-          .catch(error => {
-            console.error('Erreur lors de la récupération des données des villes désirées:', error);
+          .catch((error) => {
+            console.error(
+              'Erreur lors de la récupération des données des villes désirées:',
+              error
+            );
           });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Erreur lors de la récupération des données:', error);
       });
   }, []);
@@ -102,7 +121,7 @@ const InscriptionScreen = () => {
             style={styles.input}
             placeholder="Nom"
             value={nom}
-            onChangeText={text => setNom(text)}
+            onChangeText={(text) => setNom(text)}
           />
         </View>
 
@@ -112,7 +131,7 @@ const InscriptionScreen = () => {
             style={styles.input}
             placeholder="Prénom"
             value={prenom}
-            onChangeText={text => setPrenom(text)}
+            onChangeText={(text) => setPrenom(text)}
           />
         </View>
         <View style={styles.fieldContainer}>
@@ -121,7 +140,7 @@ const InscriptionScreen = () => {
             style={styles.input}
             placeholder="Téléphone"
             value={telephone}
-            onChangeText={text => setTelephone(text)}
+            onChangeText={(text) => setTelephone(text)}
           />
         </View>
         <View style={styles.fieldContainer}>
@@ -130,7 +149,7 @@ const InscriptionScreen = () => {
             style={styles.input}
             placeholder="Email"
             value={email}
-            onChangeText={text => setEmail(text)}
+            onChangeText={(text) => setEmail(text)}
           />
         </View>
         <View style={styles.fieldContainer}>
@@ -140,7 +159,7 @@ const InscriptionScreen = () => {
             placeholder="Mot de passe"
             secureTextEntry={true}
             value={password}
-            onChangeText={text => setPassword(text)}
+            onChangeText={(text) => setPassword(text)}
           />
         </View>
 
@@ -149,22 +168,27 @@ const InscriptionScreen = () => {
           <Picker
             style={styles.dropdown}
             selectedValue={grade}
-            onValueChange={itemValue => setGrade(itemValue)}
-          >
+            onValueChange={(itemValue) => setGrade(itemValue)}>
             <Picker.Item label="Sélectionner un grade" value="" />
-            {grades.map(gradeItem => (
-              <Picker.Item key={gradeItem} label={gradeItem} value={gradeItem} />
+            {grades.map((gradeItem) => (
+              <Picker.Item
+                key={gradeItem}
+                label={gradeItem}
+                value={gradeItem}
+              />
             ))}
           </Picker>
         </View>
 
         <View style={styles.fieldContainer}>
-          <Text style={styles.label}>Etablissement (abréviation: FST, FS, EST, ENSA ...) :</Text>
+          <Text style={styles.label}>
+            Etablissement (abréviation: FST, FS, EST, ENSA ...) :
+          </Text>
           <TextInput
             style={styles.input}
             placeholder="Etablissement"
             value={etablissement}
-            onChangeText={text => setEtablissement(text)}
+            onChangeText={(text) => setEtablissement(text)}
           />
         </View>
 
@@ -173,11 +197,14 @@ const InscriptionScreen = () => {
           <Picker
             style={styles.dropdown}
             selectedValue={specialite}
-            onValueChange={itemValue => setSpecialite(itemValue)}
-          >
+            onValueChange={(itemValue) => setSpecialite(itemValue)}>
             <Picker.Item label="Sélectionner une spécialité" value="" />
-            {specialites.map(specialiteItem => (
-              <Picker.Item key={specialiteItem} label={specialiteItem} value={specialiteItem} />
+            {specialites.map((specialiteItem) => (
+              <Picker.Item
+                key={specialiteItem}
+                label={specialiteItem}
+                value={specialiteItem}
+              />
             ))}
           </Picker>
         </View>
@@ -187,11 +214,14 @@ const InscriptionScreen = () => {
           <Picker
             style={styles.dropdown}
             selectedValue={villeActuelle}
-            onValueChange={itemValue => setVilleActuelle(itemValue)}
-          >
+            onValueChange={(itemValue) => setVilleActuelle(itemValue)}>
             <Picker.Item label="Sélectionner une ville actuelle" value="" />
-            {villesOptions.map(villeOption => (
-              <Picker.Item key={villeOption.value} label={villeOption.label} value={villeOption.value} />
+            {villesOptions.map((villeOption) => (
+              <Picker.Item
+                key={villeOption.value}
+                label={villeOption.label}
+                value={villeOption.value}
+              />
             ))}
           </Picker>
         </View>
@@ -201,12 +231,15 @@ const InscriptionScreen = () => {
           <Picker
             style={styles.dropdown}
             selectedValue={villesDesirees}
-            onValueChange={itemValue => setVillesDesirees(itemValue)}
-            mode="multiple"
-          >
-             <Picker.Item label="Sélectionner une ville désiré" value="" />
-            {villesDesirees.map(villeDesiree => (
-              <Picker.Item key={villeDesiree.value} label={villeDesiree.label} value={villeDesiree.value} />
+            onValueChange={(itemValue) => setVillesDesirees(itemValue)}
+            mode="multiple">
+            <Picker.Item label="Sélectionner une ville désiré" value="" />
+            {villesDesirees.map((villeDesiree) => (
+              <Picker.Item
+                key={villeDesiree.value}
+                label={villeDesiree.label}
+                value={villeDesiree.value}
+              />
             ))}
           </Picker>
         </View>

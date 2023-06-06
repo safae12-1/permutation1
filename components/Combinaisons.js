@@ -27,19 +27,6 @@ const Combinaisons = () => {
   <>
     <GraphContainer ProfesseursContext={professeursCont} />
 
-    <View>
-    <Text style={styles.label}>Spécialité</Text>
-      <Picker
-        style={styles.dropdownContainer}
-        selectedValue={specialite}
-        onValueChange={itemValue => setSpecialite(itemValue)}
-      >
-        <Picker.Item label="Tous les spécialité" value="" />
-        {specialiteOptions.map((specialiteItem, index) => (
-          <Picker.Item key={index} label={specialiteItem} value={specialiteItem} />
-        ))}
-      </Picker>
-    </View>
   </>
   );
 };

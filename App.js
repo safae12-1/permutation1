@@ -17,9 +17,11 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <AuthProvider> {/* Wrap the app with AuthProvider */}
+    <AuthProvider>
       <NavigationContainer>
-        <Drawer.Navigator initialRouteName="Accueil" drawerContent={(props) => <Menu {...props} />}>
+        <Drawer.Navigator
+          initialRouteName="Accueil"
+          drawerContent={(props) => <Menu {...props} />}>
           <Drawer.Screen name="Accueil" component={AccueilScreen} />
           <Drawer.Screen name="A propos" component={AProposScreen} />
           <Drawer.Screen name="Connexion" component={ConnexionScreen} />

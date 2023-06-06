@@ -287,7 +287,7 @@ const GraphContainer = ({ProfesseursContext}) => {
     return (
 
         <View>
-      <Text>Combinaisons</Text>
+      
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ marginBottom: 10 }}>
         <Picker

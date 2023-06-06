@@ -19,7 +19,6 @@ const AppNavigator = () => {
       <Stack.Screen name="A Propos" component={AProposScreen} />
       <Stack.Screen name="Inscription" component={InscriptionScreen} />
       <Stack.Screen name="Connexion" component={ConnexionScreen} />
-      
     </Stack.Navigator>
   );
 };

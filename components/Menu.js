@@ -22,11 +22,11 @@ const Menu = () => {
       <TouchableOpacity onPress={() => navigateToScreen('Accueil')}>
         <Text style={styles.menuItem}>Accueil</Text>
       </TouchableOpacity>
-      { !isLoggedIn &&
+      {!isLoggedIn && (
         <TouchableOpacity onPress={() => navigateToScreen('Inscription')}>
-        <Text style={styles.menuItem}>Inscription</Text>
-      </TouchableOpacity>
-      }
+          <Text style={styles.menuItem}>Inscription</Text>
+        </TouchableOpacity>
+      )}
       {isLoggedIn ? (
         <>
           <TouchableOpacity onPress={() => navigateToScreen('Profil')}>
