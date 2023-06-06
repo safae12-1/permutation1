@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { PieChart } from 'react-native-chart-kit';
 import Footer from './footer';
 const AccueilScreen = () => {
@@ -77,12 +77,12 @@ const AccueilScreen = () => {
 
   return (
     <ScrollView>
-      <View>
-        <Text>Nombre de professeurs : {nombreProfesseurs}</Text>
+      <View >
+        <Text style={styles.card}>Nombre de professeurs : {nombreProfesseurs}</Text>
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Nombre de profs par spécialité</Text>
+        <View style={styles.card} >
+          <Text style={{ fontWeight: 'bold' }}>Nombre de profs par spécialité</Text>
           {dataSpecialites.length > 0 ? (
             <PieChart
               data={dataSpecialites}
@@ -113,8 +113,8 @@ const AccueilScreen = () => {
 
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Les villes les plus demandées</Text>
+        <View style={styles.card}>
+          <Text style={{ fontWeight: 'bold' }}>Les villes les plus demandées</Text>
           {dataVilles.length > 0 ? (
             <PieChart
               data={dataVilles}
@@ -145,8 +145,8 @@ const AccueilScreen = () => {
 
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Nombre de profs par grade</Text>
+        <View style={styles.card}>
+          <Text style={{ fontWeight: 'bold' }}>Nombre de profs par grade</Text>
           {dataGrades.length > 0 ? (
             <PieChart
               data={dataGrades}
@@ -177,8 +177,8 @@ const AccueilScreen = () => {
 
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Nombre de profs par spécialité (Top 15)</Text>
+        <View style={styles.card}>
+          <Text style={{ fontWeight: 'bold' }}>Nombre de profs par spécialité (Top 15)</Text>
           {dataSpecialites.slice(0, 15).map((item, index) => (
             <View
               key={index}
@@ -195,8 +195,8 @@ const AccueilScreen = () => {
 
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Villes les plus demandées (Top 15)</Text>
+        <View style={styles.card}>
+          <Text style={{ fontWeight: 'bold' }}>Villes les plus demandées (Top 15)</Text>
           {dataVilles.slice(0, 15).map((item, index) => (
             <View
               key={index}
@@ -213,8 +213,9 @@ const AccueilScreen = () => {
 
         <Text> {'\n'}</Text>
 
-        <View style={{ borderWidth: 1, borderColor: 'black' }}>
-          <Text>Nombre de profs par grade</Text>
+        <View style={styles.card}>
+          <Text style={{ fontWeight: 'bold' }}>Nombre de profs par grade</Text>
+
           {dataGrades.length > 0 ? (
             dataGrades.map((item, index) => (
               <View
@@ -238,5 +239,22 @@ const AccueilScreen = () => {
     </ScrollView>
   );
 };
-
+const styles = StyleSheet.create({
+ 
+  card: {
+    marginTop: 5,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 16,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  
+});
 export default AccueilScreen;

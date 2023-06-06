@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import { AuthContext } from './context/AuthContext';
 
@@ -20,33 +21,54 @@ const Menu = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigateToScreen('Accueil')}>
-        <Text style={styles.menuItem}>Accueil</Text>
+        <View style={styles.menuItemContainer}>
+          <FontAwesome name="home" size={20} style={styles.icon} />
+          <Text style={styles.menuItem}>Accueil</Text>
+        </View>
       </TouchableOpacity>
       {!isLoggedIn && (
         <TouchableOpacity onPress={() => navigateToScreen('Inscription')}>
-          <Text style={styles.menuItem}>Inscription</Text>
+          <View style={styles.menuItemContainer}>
+            <FontAwesome name="user-plus" size={20} style={styles.icon} />
+            <Text style={styles.menuItem}>Inscription</Text>
+          </View>
         </TouchableOpacity>
       )}
       {isLoggedIn ? (
         <>
           <TouchableOpacity onPress={() => navigateToScreen('Profil')}>
-            <Text style={styles.menuItem}>Profil</Text>
+            <View style={styles.menuItemContainer}>
+              <FontAwesome name="user" size={20} style={styles.icon} />
+              <Text style={styles.menuItem}>Profil</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigateToScreen('Rechercher')}>
-            <Text style={styles.menuItem}>Rechercher</Text>
+            <View style={styles.menuItemContainer}>
+              <FontAwesome name="search" size={20} style={styles.icon} />
+              <Text style={styles.menuItem}>Rechercher</Text>
+            </View>
           </TouchableOpacity>
         </>
       ) : null}
       <TouchableOpacity onPress={() => navigateToScreen('A propos')}>
-        <Text style={styles.menuItem}>A propos</Text>
+        <View style={styles.menuItemContainer}>
+          <FontAwesome name="info-circle" size={20} style={styles.icon} />
+          <Text style={styles.menuItem}>A propos</Text>
+        </View>
       </TouchableOpacity>
       {isLoggedIn ? (
         <TouchableOpacity onPress={() => handleLogout()}>
-          <Text style={styles.menuItem}>Sign out</Text>
+          <View style={styles.menuItemContainer}>
+            <FontAwesome name="sign-out" size={20} style={styles.icon} />
+            <Text style={styles.menuItem}>Sign out</Text>
+          </View>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={() => navigateToScreen('Connexion')}>
-          <Text style={styles.menuItem}>Connexion</Text>
+          <View style={styles.menuItemContainer}>
+            <FontAwesome name="sign-in" size={20} style={styles.icon} />
+            <Text style={styles.menuItem}>Connexion</Text>
+          </View>
         </TouchableOpacity>
       )}
     </View>
@@ -60,10 +82,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: '#fff',
   },
+  menuItemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  icon: {
+    marginRight: 10,
+  },
   menuItem: {
     fontSize: 20,
-    marginBottom: 15,
   },
 });
 
-export default Menu;
+export default Menu
