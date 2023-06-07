@@ -7,6 +7,8 @@ import AccueilScreen from './AccueilScreen';
 import InscriptionScreen from './InscriptionScreen';
 import AProposScreen from './AProposScreen';
 import ConnexionScreen from './ConnexionScreen';
+import Rechercher from './Rechercher';
+import Profil from './Profil';
 
 // Create a stack navigator
 const Stack = createStackNavigator();
@@ -19,6 +21,8 @@ const AppNavigator = () => {
       <Stack.Screen name="A Propos" component={AProposScreen} />
       <Stack.Screen name="Inscription" component={InscriptionScreen} />
       <Stack.Screen name="Connexion" component={ConnexionScreen} />
+      <Stack.Screen name="Profil" component={Profil} />
+      <Stack.Screen name="Rechercher" component={Rechercher} />
     </Stack.Navigator>
   );
 };

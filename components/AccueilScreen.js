@@ -7,9 +7,10 @@ const AccueilScreen = () => {
   const [dataSpecialites, setDataSpecialites] = useState([]);
   const [dataVilles, setDataVilles] = useState([]);
   const [dataGrades, setDataGrades] = useState([]);
+  const colors = ['#FFC107', '#FF5722', '#03A9F4', '#4CAF50', '#9C27B0', '#FF9800', '#8BC34A', '#E91E63', '#00BCD4', '#CDDC39', '#795548', '#673AB7', '#F44336', '#2196F3', '#FFEB3B'];
 
   useEffect(() => {
-    fetch('https://troubled-red-garb.cyclic.app/professeurs')
+    fetch('https://tiny-worm-nightgown.cyclic.app/professeurs')
       .then((response) => response.json())
       .then((professeurs) => {
         const specialitesCount = {};
@@ -18,51 +19,51 @@ const AccueilScreen = () => {
 
         professeurs.forEach((professeur) => {
           const specialite = professeur.specialite;
-          specialitesCount[specialite] =
-            (specialitesCount[specialite] || 0) + 1;
-
           const ville = professeur.villeDesiree;
-          villesCount[ville] = (villesCount[ville] || 0) + 1;
-
           const grade = professeur.grade;
-          gradesCount[grade] = (gradesCount[grade] || 0) + 1;
+
+          if (specialitesCount.hasOwnProperty(specialite)) {
+            specialitesCount[specialite] += 1;
+          } else {
+            specialitesCount[specialite] = 1;
+          }
+
+          if (villesCount.hasOwnProperty(ville)) {
+            villesCount[ville] += 1;
+          } else {
+            villesCount[ville] = 1;
+          }
+
+          if (gradesCount.hasOwnProperty(grade)) {
+            gradesCount[grade] += 1;
+          } else {
+            gradesCount[grade] = 1;
+          }
         });
 
-        const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
-
-        const filteredSpecialitesData = Object.entries(specialitesCount)
-          .filter(([label, value]) => value > 0)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 13)
-          .map(([label, value], index) => ({
-            name: label,
-            value,
-            color: colors[index % colors.length],
-          }));
-
-        const filteredVillesData = Object.entries(villesCount)
-          .filter(([label, value]) => value > 0)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 15)
-          .map(([label, value], index) => ({
-            name: label,
-            value,
-            color: colors[index % colors.length],
-          }));
-
-        const filteredGradesData = Object.entries(gradesCount)
-          .filter(([label, value]) => value > 0)
-          .sort((a, b) => b[1] - a[1])
-          .slice(0, 7)
-          .map(([label, value], index) => ({
-            name: label,
-            value,
-            color: colors[index % colors.length],
-          }));
+        const filteredSpecialitesData = Object.keys(specialitesCount).map(specialite => ({
+          specialite,
+          professeur: specialitesCount[specialite],
+        }));
 
         setDataSpecialites(filteredSpecialitesData);
+
+        ///// pour villes 
+        const filteredVillesData = Object.keys(villesCount).map(ville => ({
+          ville,
+          professeur: villesCount[ville],
+        }));
+        
         setDataVilles(filteredVillesData);
+
+        // pour grades
+        const filteredGradesData = Object.keys(gradesCount).map(grade => ({
+          grade,
+          professeur: gradesCount[grade],
+        }));
+
         setDataGrades(filteredGradesData);
+
 
         const nombreProfesseurs = professeurs.length;
         setNombreProfesseurs(nombreProfesseurs);
@@ -75,6 +76,40 @@ const AccueilScreen = () => {
       });
   }, []);
 
+    const data1 = dataSpecialites
+    .sort((a, b) => b.professeur - a.professeur) 
+    .slice(0, 15)
+    .map((item, index) => ({
+      name: item.specialite,
+      population: item.professeur,
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+      color: colors[index % colors.length], 
+    }));
+
+    const data2 = dataVilles
+    .sort((a, b) => b.professeur - a.professeur) 
+    .slice(0, 15)
+    .map((item, index) => ({
+      name: item.ville,
+      population: item.professeur,
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+      color: colors[index % colors.length], 
+    }));
+
+    const data3 = dataGrades
+    .sort((a, b) => b.professeur - a.professeur) 
+    .slice(0, 15)
+    .map((item, index) => ({
+      name: item.grade,
+      population: item.professeur,
+      legendFontColor: '#7F7F7F',
+      legendFontSize: 12,
+      color: colors[index % colors.length], 
+    }));
+
+
   return (
     <ScrollView>
       <View >
@@ -85,9 +120,10 @@ const AccueilScreen = () => {
           <Text style={{ fontWeight: 'bold' }}>Nombre de profs par spécialité</Text>
           {dataSpecialites.length > 0 ? (
             <PieChart
-              data={dataSpecialites}
+              data={data1}
               width={300}
               height={200}
+              accessor={"population"}
               chartConfig={{
                 backgroundColor: '#fff',
                 backgroundGradientFrom: '#fff',
@@ -96,15 +132,9 @@ const AccueilScreen = () => {
                 color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
               }}
-              accessor="value"
               backgroundColor="transparent"
               paddingLeft={15}
               absolute
-              hasLegend={true}
-              legend={dataSpecialites.map((item) => ({
-                name: item.name,
-                color: item.color,
-              }))}
             />
           ) : (
             <Text>{'Aucune donnée à afficher'}</Text>
@@ -117,7 +147,7 @@ const AccueilScreen = () => {
           <Text style={{ fontWeight: 'bold' }}>Les villes les plus demandées</Text>
           {dataVilles.length > 0 ? (
             <PieChart
-              data={dataVilles}
+              data={data2}
               width={300}
               height={200}
               chartConfig={{
@@ -128,15 +158,10 @@ const AccueilScreen = () => {
                 color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
               }}
-              accessor="value"
+              accessor="population"
               backgroundColor="transparent"
               paddingLeft={15}
               absolute
-              hasLegend={true}
-              legend={dataVilles.map((item) => ({
-                name: item.name,
-                color: item.color,
-              }))}
             />
           ) : (
             <Text>Aucune donnée à afficher</Text>
@@ -149,7 +174,7 @@ const AccueilScreen = () => {
           <Text style={{ fontWeight: 'bold' }}>Nombre de profs par grade</Text>
           {dataGrades.length > 0 ? (
             <PieChart
-              data={dataGrades}
+              data={data3}
               width={300}
               height={200}
               chartConfig={{
@@ -160,15 +185,10 @@ const AccueilScreen = () => {
                 color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
               }}
-              accessor="value"
+              accessor="population"
               backgroundColor="transparent"
               paddingLeft={15}
               absolute
-              hasLegend={true}
-              legend={dataGrades.map((item) => ({
-                name: item.name,
-                color: item.color,
-              }))}
             />
           ) : (
             <Text>Aucune donnée à afficher</Text>
@@ -179,6 +199,7 @@ const AccueilScreen = () => {
 
         <View style={styles.card}>
           <Text style={{ fontWeight: 'bold' }}>Nombre de profs par spécialité (Top 15)</Text>
+          
           {dataSpecialites.slice(0, 15).map((item, index) => (
             <View
               key={index}
@@ -187,8 +208,9 @@ const AccueilScreen = () => {
                 justifyContent: 'space-between',
                 padding: 10,
               }}>
-              <Text style={{ flex: 1 }}>{item.name}</Text>
-              <Text style={{ flex: 1 }}>{item.value}</Text>
+              <Text style={{ flex: 1 }}>{item.specialite}</Text>
+              <Text style={{ flex: 1 }}>{item.professeur}</Text>
+             
             </View>
           ))}
         </View>
@@ -205,33 +227,32 @@ const AccueilScreen = () => {
                 justifyContent: 'space-between',
                 padding: 10,
               }}>
-              <Text style={{ flex: 1 }}>{item.name}</Text>
-              <Text style={{ flex: 1 }}>{item.value}</Text>
+              <Text style={{ flex: 1 }}>{item.ville}</Text>
+              <Text style={{ flex: 1 }}>{item.professeur}</Text>
+             
             </View>
           ))}
+
         </View>
 
         <Text> {'\n'}</Text>
 
         <View style={styles.card}>
           <Text style={{ fontWeight: 'bold' }}>Nombre de profs par grade</Text>
-
-          {dataGrades.length > 0 ? (
-            dataGrades.map((item, index) => (
-              <View
-                key={index}
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  padding: 10,
-                }}>
-                <Text style={{ flex: 1 }}>{item.name}</Text>
-                <Text style={{ flex: 1 }}>{item.value}</Text>
-              </View>
-            ))
-          ) : (
-            <Text>Aucune donnée à afficher</Text>
-          )}
+            {dataGrades.slice(0, 15).map((item, index) => (
+            <View
+              key={index}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                padding: 10,
+              }}>
+              <Text style={{ flex: 1 }}>{item.grade}</Text>
+              <Text style={{ flex: 1 }}>{item.professeur}</Text>
+             
+            </View>
+          ))}
+          
         </View>
 
         <Footer />

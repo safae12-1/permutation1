@@ -17,7 +17,7 @@ const Rechercher = () => {
   const [resultList, setResultList] = useState([])
 
   useEffect(() => {
-    fetch('https://troubled-red-garb.cyclic.app/professeurs')
+    fetch('https://tiny-worm-nightgown.cyclic.app/professeurs')
       .then(response => response.json())
       .then(data => {
         const professeurs = data;
@@ -123,7 +123,7 @@ const handleSubmit = () => {
         <Text style={styles.label}>Résultats de la recherche</Text>
         {
           resultList?.map((result) => (
-            <View style={{ marginBottom: 10 }}>
+            <View style={styles.card}>
           <Text style={{ fontSize: 20 }}>{result.nom} {result.prenom} ({result.email} | {result.tel} | {result.grade}) - {result.specialite} - ({result.faculteActuelle} | {result.villeFaculteActuelle}) ---> {result.villeDesiree}}</Text>
         </View>
           ))
@@ -153,7 +153,20 @@ const styles = StyleSheet.create({
     height: 40,
     marginBottom: 16,
   },
-
+  card: {
+    marginTop: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 16,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
